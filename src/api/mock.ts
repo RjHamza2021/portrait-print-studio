@@ -21,6 +21,15 @@ import type {
   UserPortrait,
   VariationRequest,
 } from "./types";
+import styleExample1 from "../assets/style-example-1.jpg";
+import styleExample2 from "../assets/style-example-2.jpg";
+import styleExample3 from "../assets/style-example-3.jpg";
+import styleExample4 from "../assets/style-example-4.jpg";
+import styleExample5 from "../assets/style-example-5.jpg";
+import styleExample6 from "../assets/style-example-6.jpg";
+import royalTerrier from "../assets/royal-terrier.jpg";
+
+const localStyleImages = [styleExample1, styleExample2, styleExample3, styleExample4, styleExample5, styleExample6];
 
 export const mockStyles: StylesResponse = {
   groups: [
@@ -58,6 +67,11 @@ export const mockStyles: StylesResponse = {
   ],
 };
 
+mockStyles.styles = mockStyles.styles.map((style, index) => ({
+  ...style,
+  thumb_url: localStyleImages[index % localStyleImages.length] ?? styleExample1,
+}));
+
 export const mockProducts: ProductsResponse = {
   products: [
     { id: "poster", name: "Fine art poster", description: "Museum-quality matte paper with rich, lasting color.", mockup_url: "https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?w=640&h=480&fit=crop", sizes: [{ id: "poster-12x16", label: "12 × 16 in", price: 19, currency: "USD" }, { id: "poster-18x24", label: "18 × 24 in", price: 29, currency: "USD" }], ships_in: "3–6 business days" },
@@ -71,6 +85,11 @@ export const mockProducts: ProductsResponse = {
   ],
 };
 
+mockProducts.products = mockProducts.products.map((product, index) => ({
+  ...product,
+  mockup_url: localStyleImages[index % localStyleImages.length] ?? styleExample1,
+}));
+
 export const mockCreditPacks: CreditPacksResponse = {
   packs: [
     { id: "pack_1", name: "1 HD download", credits: 1, price: 2.99, currency: "USD", badge: null },
@@ -79,7 +98,7 @@ export const mockCreditPacks: CreditPacksResponse = {
   ],
 };
 
-export const demoPortraitImage = "/images/demo-portrait.jpg";
+export const demoPortraitImage = royalTerrier;
 
 const portraitProgress = new Map<string, { startedAt: number; styleId: string; subject: "human" | "pet" }>();
 const savedPortraits: UserPortrait[] = [];

@@ -152,3 +152,10 @@ export interface MagicVerifyRequest {
 }
 
 export interface OrderResponse extends UserOrder {}
+
+export interface ApiErrorResponse {
+  error: {
+    code: string;
+    message: string;
+  };
+}
